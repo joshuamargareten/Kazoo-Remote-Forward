@@ -1,0 +1,27 @@
+{
+  "name": "forward-from-outside",
+  "version": "0.5.0",
+  "private": true,
+  "description": "Enables the option to toggle call forwarding from an outside number for Kazoo",
+  "scripts": {
+    "start": "nodemon ./bin/www {{your_api_key_here}} https://portal.{{your_domain}}.com/v2/"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "nodemon": "^3.0.3"
+  },
+  "keywords": [
+    "Kazoo",
+    "2600Hz",
+    "Teklink",
+    "Callflows",
+    "SmartPBX"
+  ],
+  "author": "Shulem Margareten",
+  "license": "ISC"
+}
