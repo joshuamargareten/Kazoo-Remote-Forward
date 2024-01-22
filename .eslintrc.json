@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2022": true,
+        "node": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "indent": [
+            "warn"
+        ],
+        "semi-style": [
+            "warn",
+            "last"
+        ],
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "no-unused-vars": "warn",
+        "no-trailing-spaces": "off",
+        "padded-blocks": "off"
+    },
+    "root": true
+}

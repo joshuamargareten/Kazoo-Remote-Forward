@@ -1,5 +1,6 @@
 var createError = require('http-errors');
-const { baseUrl, getAuthToken } = require("./auth");
+const { baseUrl, getAuthToken } = require('./auth');
+const { wLogger } = require('./logger');
 
 /**
  * Get data from Kazoo.
@@ -9,9 +10,10 @@ const { baseUrl, getAuthToken } = require("./auth");
  * @returns Actual data requested.
  */
 async function getKazooData(folder, accountId, next) {
+    wLogger.info('Getting Kazoo data: ' + folder);
     await getAuthToken(next);
     try {
-        const response = await fetch(`${baseUrl}accounts/${accountId}/${folder}`, { method: "GET", headers: { "Content-Type": "application/json", "X-Auth-Token": global.authToken } });
+        const response = await fetch(`${baseUrl}accounts/${accountId}/${folder}`, { method: 'GET', headers: { 'Content-Type': 'application/json', 'X-Auth-Token': global.authToken } });
         const responseJson = await response.json();
         return responseJson.data;
     } catch (error) {
@@ -27,9 +29,10 @@ async function getKazooData(folder, accountId, next) {
  * @param {function} next Pass next from the router.
  */
 async function postKazooData(folder, accountId, bodyObj, next) {
+    wLogger.info('Updating Kazoo folder: ' + folder + ', data: ' + JSON.stringify(bodyObj));
     await getAuthToken(next);
     try {
-        const response = await fetch(`${baseUrl}accounts/${accountId}/${folder}`, { method: "POST", headers: { "Content-Type": "application/json", "X-Auth-Token": global.authToken }, body: JSON.stringify(bodyObj) });
+        const response = await fetch(`${baseUrl}accounts/${accountId}/${folder}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Auth-Token': global.authToken }, body: JSON.stringify(bodyObj) });
         if (response.status >= 400) {
             next(createError(response.status));
         }
@@ -47,17 +50,17 @@ async function postKazooData(folder, accountId, bodyObj, next) {
  * @returns Callflow object.
  */
 function cfTts(text, children) {
-    retVal = {
-        module: "tts",
+    const retVal = {
+        module: 'tts',
         data: {
             text: text
         }
-    }
+    };
 
     if (children) {
         retVal.children = {
             _: children
-        }
+        };
     }
 
     return retVal;
@@ -76,14 +79,14 @@ function cfCollectDtmf(collection_name, max_digits = 11, children = {}) {
             interdigit_timeout: 2000,
             collection_name: collection_name,
             max_digits: max_digits,
-            terminator: "#",
+            terminator: '#',
             timeout: 10000
         },
-        module: "collect_dtmf",
+        module: 'collect_dtmf',
         children: {
             _: children
         }
-    }
+    };
 }
 
 /**
@@ -96,15 +99,15 @@ function cfCollectDtmf(collection_name, max_digits = 11, children = {}) {
  */
 function cfPivot(method, voice_url = null, req, folder) {
     return {
-        module: "pivot",
+        module: 'pivot',
         data: {
             method: method,
-            req_timeout: "10",
-            req_format: "kazoo",
-            voice_url: `${voice_url || `${req.protocol}://${req.get('host')}`}/${folder ? folder : ""}`,
+            req_timeout: '10',
+            req_format: 'kazoo',
+            voice_url: `${voice_url || `${req.protocol}://${req.get('host')}`}/${folder ? folder : ''}`,
             debug: true
         }
-    }
+    };
 }
 
 /**
@@ -115,14 +118,14 @@ function cfPivot(method, voice_url = null, req, folder) {
  */
 function cfSetCav(cavObject, children) {
     return {
-        module: "set_variables",
+        module: 'set_variables',
         data: {
             custom_application_vars: cavObject
         },
         children: {
             _: children
         }
-    }
+    };
 }
 
 /**
@@ -132,16 +135,16 @@ function cfSetCav(cavObject, children) {
  */
 function cfDisa(use_account_caller_id) {
     return {
-        module: "disa",
+        module: 'disa',
         data: {
             enforce_call_restriction: true,
             max_digits: 15,
-            preconnect_audio: "dialtone",
+            preconnect_audio: 'dialtone',
             retries: 3,
             ring_repeat_count: 1,
             use_account_caller_id: use_account_caller_id
         }
-    }
+    };
 }
 
 /**
@@ -153,19 +156,19 @@ function cfDisa(use_account_caller_id) {
  */
 function cfDynamicCid(cidName, cidNumber, children) {
     return {
-        module: "dynamic_cid",
+        module: 'dynamic_cid',
         data: {
-            action: "static",
+            action: 'static',
             caller_id: {
                 name: cidName,
                 number: cidNumber
             },
-            "enforce_call_restriction": true
+            'enforce_call_restriction': true
         },
         children: {
             _: children
         }
-    }
+    };
 }
 
 

@@ -12,11 +12,12 @@ This Express app communicates with Kazoo (by 260Hz) to provide users to manage r
 * Provides the caller the option to login to voicemail
 
 # Installation
-1. Clone this repository to your desired server
+1. Fork this repository to your desired server
 2. In package.json add your base URL and API key in the start script
-3. Run **npm i** to install dependencies
-4. Create an DNS record for url convenience 
-5. Run **npm run start**
+3. The default port is 6002, you may change it ti 80 or 443 in /bin/www or you can set an environment variable PORT
+4. Run **npm i** to install dependencies
+5. Create an DNS record for url convenience 
+6. Run **npm run start**
 
 # Kazoo setup
 1. In the **Pivot** app select the **Numbers Routing** tab

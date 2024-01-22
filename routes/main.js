@@ -12,27 +12,27 @@ router.post('/', async function (req, res, next) {
     //Announce to the caller current status and menu options
     let menuGreeting;
     if (user.call_forward.enabled) {
-        menuGreeting = `Call forwarding is now enabled, to number: ${user.call_forward.number.split("")}, to turn off call forwarding: press 1, to change call forwarding number: press 2, to update call forwarding settings: press 3, `;
+        menuGreeting = `Call forwarding is now enabled, to number: ${user.call_forward.number.split('')}, to turn off call forwarding: press 1, to change call forwarding number: press 2, to update call forwarding settings: press 3, `;
     } else {
-        menuGreeting = 'Call forwarding is now disabled, to turn on call forwarding: press 1, '
+        menuGreeting = 'Call forwarding is now disabled, to turn on call forwarding: press 1, ';
     }
-    menuGreeting += "to place a call: press 4, to listen to your voicemails: press 5."
+    menuGreeting += 'to place a call: press 4, to listen to your voicemails: press 5.';
 
     res.json(
         cfTts(
             menuGreeting,
             cfCollectDtmf(
-                "mainMenu",
+                'mainMenu',
                 1,
                 cfPivot(
-                    "post",
+                    'post',
                     null,
                     req,
-                    "mmroute"
+                    'mmroute'
                 )
             )
         )
-    )
-})
+    );
+});
 
 module.exports = router;
