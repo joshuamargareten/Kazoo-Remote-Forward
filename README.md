@@ -38,3 +38,8 @@ This Express app communicates with Kazoo (by 260Hz) to provide users to manage r
 1. In the **Pivot** app select the **Live Debug** tab
 2. Select the log you wish to check
 3. Click on **View details**
+
+# Caller's Options Diagram
+
+
+![remote-forward](https://github.com/joshuamargareten/Kazoo-Remote-Forward/assets/106287331/ebeb5ed0-6a15-46c2-818f-0c5424df9cbf)
